@@ -40,4 +40,7 @@ public class AgendamentoEntity {
 
     @Column(name = "atualizado_em", nullable = false)
     private LocalDateTime atualizadoEm;
+
+    @Column(nullable = false, length = 120)
+    private String usuario;
 }
