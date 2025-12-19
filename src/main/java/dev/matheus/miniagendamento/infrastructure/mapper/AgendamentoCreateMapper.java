@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class AgendamentoCreateMapper {
 
 
-    public AgendamentoCreateRequest toDTO(Agendamento agendamento){
+    public AgendamentoCreateRequest toDto(Agendamento agendamento){
         return new AgendamentoCreateRequest(
                 agendamento.titulo(),
                 agendamento.descricao(),
