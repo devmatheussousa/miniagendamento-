@@ -24,8 +24,8 @@ public class AgendamentoRepositoryGateway implements AgendamentoGateway {
     @Override
     public Agendamento criarAgendamento(Agendamento agendamento) {
 
-        //validarIntervalo(agendamento.dataInicio(), agendamento.dataFim());
-        //checarConflito(agendamento.usuario(), agendamento.dataInicio(), agendamento.dataFim());
+        validarIntervalo(agendamento.dataInicio(), agendamento.dataFim());
+        checarConflito(agendamento.usuario(), agendamento.dataInicio(), agendamento.dataFim(), agendamento.id());
 
         AgendamentoEntity agendamentoEntity = repository.save(mapper.toEntity(agendamento));
 
@@ -56,7 +56,28 @@ public class AgendamentoRepositoryGateway implements AgendamentoGateway {
 
     @Override
     public Agendamento concluirAgendamento(Long id) {
-        return null;
+        var existente = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Agendamento não encontrado"));
+        existente.setStatus(StatusAgendamento.CONCLUIDO);
+        existente.setAtualizadoEm(LocalDateTime.now());
+        return mapper.toDomain(repository.save(existente));
     }
+
+
+    private void validarIntervalo(LocalDateTime inicio, LocalDateTime fim) {
+        if (inicio == null || fim == null || !inicio.isBefore(fim)) { // se a data de início for depois da data de fim
+            throw new IllegalArgumentException("Data de início deve ser anterior à data de fim");
+        }
+    }
+
+    private void checarConflito(String usuario, LocalDateTime inicio, LocalDateTime fim, Long usuarioId) {
+        boolean conflito = repository.existsConflito(usuario, inicio, fim, usuarioId);
+        if (conflito) {
+            throw new IllegalArgumentException("Conflito de agendamento com outro agendamento do mesmo usuário");
+        }
+    }
+
+
+
 }
 //27:31
