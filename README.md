@@ -123,7 +123,7 @@ sequenceDiagram
 
 ## 🛠️ Stack Tecnológica
 
-- **Linguagem:** Java 17 (LTS)
+- **Linguagem:** Java 21 (LTS)
 - **Framework:** Spring Boot 3.x
 - **Persistência:** Spring Data JPA / Hibernate
 - **Banco de Dados:** PostgreSQL
@@ -136,7 +136,7 @@ sequenceDiagram
 ## 🚀 Guia de Instalação e Execução
 
 ### Pré-requisitos
-- JDK 17+
+- JDK 21+
 - Maven 3.8+
 - Docker (opcional, para o banco de dados)
 
