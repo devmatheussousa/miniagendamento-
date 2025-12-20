@@ -1,6 +1,7 @@
 package dev.matheus.miniagendamento.infrastructure.mapper;
 
 import dev.matheus.miniagendamento.core.entities.Agendamento;
+import dev.matheus.miniagendamento.core.enums.StatusAgendamento;
 import dev.matheus.miniagendamento.infrastructure.dto.AgendamentoUpdateRequest;
 import org.springframework.stereotype.Component;
 
@@ -33,10 +34,19 @@ public class AgendamentoUpdateRequestMapper {
         );
     }
 
+    //19:17
 
-
-
-
-
-
+    public Agendamento toEntity(AgendamentoUpdateRequest agendamentoUpdateRequest){
+            return new Agendamento(
+                    null,
+                    agendamentoUpdateRequest.titulo(),
+                    agendamentoUpdateRequest.descricao(),
+                    agendamentoUpdateRequest.dataInicio(),
+                    agendamentoUpdateRequest.dataFim(),
+                    StatusAgendamento.AGENDADO,
+                    null,
+                    LocalDateTime.now(),
+                    LocalDateTime.now()
+            );
+    }
 }
